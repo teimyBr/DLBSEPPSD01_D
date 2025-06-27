@@ -1,0 +1,32 @@
+services:
+  bucket-service:
+    build: .
+    ports:
+      - 127.0.0.1:8000:8000
+    environment:
+      S3BUCKET_NAME: test
+      S3BUCKET_PROVIDER_ENDPOINT: minio:9000
+      S3BUCKET_ACCESS_KEY: admin
+      S3BUCKET_SECRET_KEY: adminadmin
+    volumes:
+      - ./secrets:/etc/basic-auth-user-data:ro
+  minio:
+    image: quay.io/minio/minio
+    command: ['server', '/data', '--console-address', ':9001']
+    ports:
+      - "127.0.0.1:9001:9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: adminadmin
+  minio-init:
+    image: quay.io/minio/mc
+    environment:
+      MC_HOST_minio: http://admin:adminadmin@minio:9000
+    entrypoint:
+      - sh
+      - -c
+      - |
+        until mc ls minio > /dev/null 2>&1; do
+          sleep 0.5
+        done
+        mc mb minio/test;
