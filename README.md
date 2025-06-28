@@ -14,7 +14,7 @@ To use the REST endpoints, basic auth credentials (user and password) are needed
 
 ## Using Swagger UI
 
-Acess after starting docker compose 
+Acess after starting docker compose.
 
 ```
 http://localhost:8000/docs 
