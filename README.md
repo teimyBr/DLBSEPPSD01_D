@@ -12,6 +12,14 @@ This service provides REST endpoints for updating data (e.g. images) to the buck
 
 To use the REST endpoints, basic auth credentials (user and password) are needed.
 
+## Using Swagger UI
+
+Acess after starting docker compose 
+
+```
+http://localhost:8000/docs 
+```
+
 ## Upload files
 
 The REST endpoint can handle the following form data for uploads:
